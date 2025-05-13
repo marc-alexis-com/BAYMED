@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BAYMED - Aide</title>
+		<link rel="stylesheet" href="./src/output.css" />
+		<link rel="stylesheet" href="./src/custom.css" />
+		<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+		<style>
+			/* Styles additionnels pour la mise en page */
+			body {
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+			}
+
+			main {
+				flex: 1;
+			}
+
+			/* Effet de hover amélioré pour les boutons */
+			.button-hover {
+				transition: all 0.2s ease;
+			}
+
+			.button-hover:hover {
+				transform: translateY(-2px);
+			}
+
+			/* Styles pour les FAQ */
+			.faq-item {
+				border-left: 3px solid transparent;
+				transition: all 0.2s ease;
+			}
+
+			.faq-item:hover {
+				border-left-color: #3b82f6;
+			}
+
+			.faq-question {
+				cursor: pointer;
+			}
+
+			.faq-answer {
+				max-height: 0;
+				overflow: hidden;
+				transition: max-height 0.5s ease, opacity 0.5s ease, margin 0.3s ease;
+				opacity: 0;
+				margin-top: 0;
+			}
+
+			.faq-answer.active {
+				max-height: 500px;
+				opacity: 1;
+				margin-top: 0.5rem;
+			}
+
+			/* Animation pour le formulaire */
+			@keyframes pulse {
+				0% {
+					transform: scale(1);
+				}
+				50% {
+					transform: scale(1.02);
+				}
+				100% {
+					transform: scale(1);
+				}
+			}
+
+			.btn-loading {
+				animation: pulse 1.5s infinite;
+				pointer-events: none;
+			}
+
+			/* Style pour les étiquettes */
+			.contact-tag {
+				display: inline-flex;
+				align-items: center;
+				padding: 0.25rem 0.5rem;
+				background-color: #eff6ff;
+				color: #2563eb;
+				border-radius: 0.375rem;
+				font-size: 0.875rem;
+				font-weight: 500;
+				margin-right: 0.5rem;
+			}
+		</style>
+	</head>
+	<body class="bg-blue-50">
+		<header class="bg-white shadow-md p-4">
+			<div class="max-w-5xl mx-auto flex justify-between items-center">
+				<div class="flex items-center">
+					<i class="ph-fill ph-heart-straight text-blue-600 text-3xl mr-2"></i>
+					<div>
+						<h1 class="text-2xl font-bold text-blue-800">BAYMED</h1>
+						<p class="text-sm text-gray-600">Baymed.fr</p>
+					</div>
+				</div>
+				<nav class="flex items-center">
+					<a href="accueil.html" class="nav-link mx-3 flex items-center text-blue-600 hover:text-blue-800 cursor-pointer">
+						<i class="ph ph-house mr-1"></i>
+						Accueil
+					</a>
+				</nav>
+			</div>
+		</header>
+
+		<main class="max-w-4xl mx-auto p-6 pb-16">
+			<h2 class="text-3xl font-bold text-blue-900 mb-8 text-center flex items-center justify-center">
+				<i class="ph-fill ph-question text-blue-700 text-3xl mr-3"></i>
+				Besoin d'aide ?
+			</h2>
+
+			<div class="bg-white rounded-xl shadow-md p-6 mb-8">
+				<h3 class="text-2xl font-bold text-blue-700 mb-6 flex items-center">
+					<i class="ph ph-chats-circle text-blue-600 mr-2"></i>
+					Questions fréquentes
+				</h3>
+
+				<div class="space-y-4">
+					<div class="faq-item border-b border-gray-200 pb-4 px-3 rounded-lg hover:bg-blue-50 transition-colors">
+						<button class="faq-question w-full text-left font-medium text-lg text-blue-800 flex justify-between items-center py-2">
+							<span class="flex items-center">
+								<i class="ph ph-calendar-plus text-blue-600 mr-2"></i>
+								Comment prendre rendez-vous avec un médecin ?
+							</span>
+							<i class="ph ph-caret-down text-blue-600"></i>
+						</button>
+						<div class="faq-answer">
+							<div class="text-gray-700 pl-7">
+								<p>Pour prendre rendez-vous avec un médecin, suivez ces étapes simples :</p>
+								<ol class="list-decimal ml-5 mt-2 space-y-1">
+									<li>Sur la page d'accueil, cliquez sur <span class="font-medium text-blue-700">"Je prends rendez-vous"</span></li>
+									<li>Sélectionnez le type de praticien souhaité (généraliste, cardiologue, ostéopathe)</li>
+									<li>Choisissez une date disponible dans le calendrier</li>
+									<li>Sélectionnez l'horaire qui vous convient</li>
+									<li>Confirmez votre rendez-vous</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+
+					<div class="faq-item border-b border-gray-200 pb-4 px-3 rounded-lg hover:bg-blue-50 transition-colors">
+						<button class="faq-question w-full text-left font-medium text-lg text-blue-800 flex justify-between items-center py-2">
+							<span class="flex items-center">
+								<i class="ph ph-pill text-blue-600 mr-2"></i>
+								Comment commander mes médicaments ?
+							</span>
+							<i class="ph ph-caret-down text-blue-600"></i>
+						</button>
+						<div class="faq-answer">
+							<div class="text-gray-700 pl-7">
+								<p>Pour commander vos médicaments, vous avez deux options :</p>
+								<ul class="list-disc ml-5 mt-2 space-y-2">
+									<li class="flex items-start">
+										<i class="ph ph-truck text-blue-500 mr-2 mt-1"></i>
+										<div><strong class="text-blue-700">Livraison à domicile :</strong> Sélectionnez cette option et indiquez votre adresse de livraison. Vos médicaments seront livrés sous 24 à 48h.</div>
+									</li>
+									<li class="flex items-start">
+										<i class="ph ph-storefront text-blue-500 mr-2 mt-1"></i>
+										<div><strong class="text-blue-700">Retrait en pharmacie :</strong> Choisissez la pharmacie partenaire la plus proche et l'heure à laquelle vous souhaitez retirer vos médicaments (disponibles sous 2h).</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="faq-item border-b border-gray-200 pb-4 px-3 rounded-lg hover:bg-blue-50 transition-colors">
+						<button class="faq-question w-full text-left font-medium text-lg text-blue-800 flex justify-between items-center py-2">
+							<span class="flex items-center">
+								<i class="ph ph-file-text text-blue-600 mr-2"></i>
+								Comment accéder à mes documents médicaux ?
+							</span>
+							<i class="ph ph-caret-down text-blue-600"></i>
+						</button>
+						<div class="faq-answer">
+							<div class="text-gray-700 pl-7">
+								<p>Pour accéder à vos documents médicaux :</p>
+								<ol class="list-decimal ml-5 mt-2 space-y-1">
+									<li>Sur la page d'accueil, cliquez sur <span class="font-medium text-blue-700">"Mes documents"</span></li>
+									<li>Vous verrez la liste de vos ordonnances et autres documents médicaux</li>
+									<li>Cliquez sur un document pour le consulter</li>
+									<li>Vous pouvez également télécharger le document pour le conserver</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+
+					<div class="faq-item border-b border-gray-200 pb-4 px-3 rounded-lg hover:bg-blue-50 transition-colors">
+						<button class="faq-question w-full text-left font-medium text-lg text-blue-800 flex justify-between items-center py-2">
+							<span class="flex items-center">
+								<i class="ph ph-wheelchair text-blue-600 mr-2"></i>
+								Comment modifier les options d'accessibilité ?
+							</span>
+							<i class="ph ph-caret-down text-blue-600"></i>
+						</button>
+						<div class="faq-answer">
+							<div class="text-gray-700 pl-7">
+								<p>Pour modifier les options d'accessibilité :</p>
+								<ol class="list-decimal ml-5 mt-2 space-y-1">
+									<li>Sur n'importe quelle page, cliquez sur le bouton <span class="font-medium text-blue-700">"Options d'accessibilité"</span> en haut à droite</li>
+									<li>Vous pouvez alors ajuster :</li>
+									<ul class="list-disc ml-5 mt-1 mb-2 space-y-1">
+										<li>La taille du texte (petit, moyen, grand)</li>
+										<li>Le contraste (normal ou élevé)</li>
+										<li>Réduire les animations</li>
+									</ul>
+									<li>Vos préférences seront enregistrées pour vos prochaines visites</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+
+					<div class="faq-item border-b border-gray-200 pb-4 px-3 rounded-lg hover:bg-blue-50 transition-colors">
+						<button class="faq-question w-full text-left font-medium text-lg text-blue-800 flex justify-between items-center py-2">
+							<span class="flex items-center">
+								<i class="ph ph-key text-blue-600 mr-2"></i>
+								Que faire si j'ai oublié mon mot de passe ?
+							</span>
+							<i class="ph ph-caret-down text-blue-600"></i>
+						</button>
+						<div class="faq-answer">
+							<div class="text-gray-700 pl-7">
+								<p>Si vous avez oublié votre mot de passe :</p>
+								<ol class="list-decimal ml-5 mt-2 space-y-1">
+									<li>Sur la page de connexion, cliquez sur <span class="font-medium text-blue-700">"Mot de passe oublié"</span></li>
+									<li>Entrez l'adresse email associée à votre compte</li>
+									<li>Vous recevrez un email avec un lien pour réinitialiser votre mot de passe</li>
+									<li>Suivez les instructions dans l'email pour créer un nouveau mot de passe</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl shadow-md p-6">
+				<h3 class="text-2xl font-bold text-blue-700 mb-6 flex items-center">
+					<i class="ph ph-chats text-blue-600 mr-2"></i>
+					Nous contacter
+				</h3>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					<div class="bg-blue-50 rounded-lg p-4 flex flex-col items-center text-center hover:shadow-md transition-shadow">
+						<div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mb-3">
+							<i class="ph-fill ph-phone text-blue-600 text-3xl"></i>
+						</div>
+						<h4 class="text-xl font-semibold text-blue-800 mb-2">Par téléphone</h4>
+						<p class="text-lg font-mono tracking-wide">01 23 45 67 89</p>
+						<p class="text-gray-600 mt-1 flex items-center justify-center">
+							<i class="ph ph-clock text-blue-500 mr-1"></i>
+							Du lundi au vendredi de 9h à 18h
+						</p>
+						<div class="mt-3">
+							<span class="contact-tag">
+								<i class="ph ph-headset mr-1"></i>
+								Support technique
+							</span>
+						</div>
+					</div>
+
+					<div class="bg-blue-50 rounded-lg p-4 flex flex-col items-center text-center hover:shadow-md transition-shadow">
+						<div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mb-3">
+							<i class="ph-fill ph-envelope-simple text-blue-600 text-3xl"></i>
+						</div>
+						<h4 class="text-xl font-semibold text-blue-800 mb-2">Par email</h4>
+						<p class="text-lg">contact@baymed.fr</p>
+						<p class="text-gray-600 mt-1 flex items-center justify-center">
+							<i class="ph ph-clock-countdown text-blue-500 mr-1"></i>
+							Réponse sous 24 à 48h
+						</p>
+						<div class="mt-3">
+							<span class="contact-tag">
+								<i class="ph ph-envelope mr-1"></i>
+								Email
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="mt-10 relative">
+					<div class="absolute -top-6 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-200 to-transparent"></div>
+					<h4 class="text-xl font-semibold text-blue-800 mb-4 flex items-center">
+						<i class="ph ph-chat-centered-text text-blue-600 mr-2"></i>
+						Formulaire de contact
+					</h4>
+
+					<form id="contactForm" class="space-y-4">
+						<div>
+							<label for="name" class="block text-lg font-medium text-gray-700 mb-2 flex items-center">
+								<i class="ph ph-user mr-2"></i>
+								Nom
+							</label>
+							<input type="text" id="name" name="name" class="input-field cursor-text" placeholder="Votre nom" />
+						</div>
+
+						<div>
+							<label for="email" class="block text-lg font-medium text-gray-700 mb-2 flex items-center">
+								<i class="ph ph-envelope mr-2"></i>
+								Email
+							</label>
+							<input type="email" id="email" name="email" class="input-field cursor-text" placeholder="Votre email" />
+						</div>
+
+						<div>
+							<label for="subject" class="block text-lg font-medium text-gray-700 mb-2 flex items-center">
+								<i class="ph ph-tag mr-2"></i>
+								Sujet
+							</label>
+							<div class="relative">
+								<select id="subject" name="subject" class="input-field appearance-none cursor-pointer">
+									<option value="" disabled selected>Choisir un sujet</option>
+									<option value="rendez-vous">Question sur les rendez-vous</option>
+									<option value="pharmacie">Question sur la pharmacie</option>
+									<option value="documents">Question sur mes documents</option>
+									<option value="technique">Problème technique</option>
+									<option value="autre">Autre demande</option>
+								</select>
+								<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+									<i class="ph ph-caret-down"></i>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<label for="message" class="block text-lg font-medium text-gray-700 mb-2 flex items-center">
+								<i class="ph ph-chat-text mr-2"></i>
+								Message
+							</label>
+							<textarea id="message" name="message" rows="4" class="input-field cursor-text" placeholder="Votre message"></textarea>
+						</div>
+
+						<div class="flex items-center mb-4">
+							<input type="checkbox" id="privacyCheck" class="h-4 w-4 text-blue-600 border-gray-300 rounded cursor-pointer" />
+							<label for="privacyCheck" class="ml-2 block text-sm text-gray-700 cursor-pointer"> J'accepte la <a href="#" class="text-blue-600 hover:underline">politique de confidentialité</a> </label>
+						</div>
+
+						<div class="mt-6 text-center">
+							<button type="submit" id="submitContact" class="btn-primary flex items-center justify-center cursor-pointer">
+								<i class="ph ph-paper-plane-right mr-2"></i>
+								Envoyer
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</main>
+
+		<footer class="bg-white py-6 border-t border-gray-200 mt-auto">
+			<div class="max-w-5xl mx-auto text-center">
+				<p class="text-gray-600">© 2025 BAYMED - Tous droits réservés</p>
+				<div class="mt-2 flex flex-wrap justify-center">
+					<a href="rendez-vous.html" class="text-blue-600 hover:text-blue-800 mx-2 my-1 flex items-center cursor-pointer">
+						<i class="ph ph-calendar-check mr-1"></i>
+						Mes rendez-vous
+					</a>
+					<a href="pharmacie.html" class="text-blue-600 hover:text-blue-800 mx-2 my-1 flex items-center cursor-pointer">
+						<i class="ph ph-pill mr-1"></i>
+						Ma pharmacie
+					</a>
+					<a href="documents.html" class="text-blue-600 hover:text-blue-800 mx-2 my-1 flex items-center cursor-pointer">
+						<i class="ph ph-file-text mr-1"></i>
+						Mes documents
+					</a>
+				</div>
+			</div>
+		</footer>
+
+		<script src="./src/global.js"></script>
+		<script>
+			// Gestion des questions fréquentes avec animation
+			const faqQuestions = document.querySelectorAll(".faq-question");
+
+			faqQuestions.forEach((question) => {
+				question.addEventListener("click", () => {
+					// Trouver la réponse associée à cette question
+					const answer = question.nextElementSibling;
+					const icon = question.querySelector("i.ph-caret-down");
+
+					// Basculer la visibilité de la réponse avec animation
+					if (!answer.classList.contains("active")) {
+						// Fermer toutes les autres réponses ouvertes
+						document.querySelectorAll(".faq-answer.active").forEach((openAnswer) => {
+							if (openAnswer !== answer) {
+								openAnswer.classList.remove("active");
+								const openIcon = openAnswer.previousElementSibling.querySelector("i.ph-caret-down");
+								openIcon.classList.remove("ph-caret-up");
+								openIcon.classList.add("ph-caret-down");
+							}
+						});
+
+						// Ouvrir cette réponse
+						answer.classList.add("active");
+						icon.classList.remove("ph-caret-down");
+						icon.classList.add("ph-caret-up");
+					} else {
+						// Fermer cette réponse
+						answer.classList.remove("active");
+						icon.classList.remove("ph-caret-up");
+						icon.classList.add("ph-caret-down");
+					}
+				});
+			});
+
+			// Gestion du formulaire de contact
+			const contactForm = document.getElementById("contactForm");
+			const submitContact = document.getElementById("submitContact");
+
+			contactForm.addEventListener("submit", (e) => {
+				e.preventDefault();
+
+				// Vérification basique
+				const name = document.getElementById("name").value;
+				const email = document.getElementById("email").value;
+				const subject = document.getElementById("subject").value;
+				const message = document.getElementById("message").value;
+				const privacyCheck = document.getElementById("privacyCheck").checked;
+
+				if (!name || !email || !subject || !message) {
+					showErrorMessage("Veuillez remplir tous les champs du formulaire.");
+					return;
+				}
+
+				if (!privacyCheck) {
+					showErrorMessage("Veuillez accepter la politique de confidentialité.");
+					return;
+				}
+
+				// Effet de chargement sur le bouton
+				submitContact.innerHTML = '<i class="ph ph-circle-notch ph-spin mr-2"></i> Envoi en cours...';
+				submitContact.classList.add("btn-loading");
+				submitContact.disabled = true;
+
+				// Simuler l'envoi du formulaire avec un délai
+				setTimeout(() => {
+					// Succès
+					showConfirmationMessage("Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.");
+
+					// Réinitialiser le formulaire
+					contactForm.reset();
+
+					// Réinitialiser le bouton
+					submitContact.innerHTML = '<i class="ph ph-paper-plane-right mr-2"></i> Envoyer';
+					submitContact.classList.remove("btn-loading");
+					submitContact.disabled = false;
+				}, 1500);
+			});
+
+			// Ouvrir la première FAQ par défaut
+			document.querySelector(".faq-question").click();
+		</script>
+	</body>
+</html>

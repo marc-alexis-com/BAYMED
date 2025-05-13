@@ -1,0 +1,92 @@
+/* custom.css - Styles personnalisés pour BAYMED */
+
+/* Mode contraste élevé */
+body.high-contrast {
+	background-color: #000 !important;
+	color: #fff !important;
+}
+
+body.high-contrast .bg-white {
+	background-color: #000 !important;
+	color: #fff !important;
+}
+
+body.high-contrast .bg-blue-50 {
+	background-color: #000 !important;
+}
+
+body.high-contrast .text-gray-600,
+body.high-contrast .text-gray-700,
+body.high-contrast .text-gray-800 {
+	color: #fff !important;
+}
+
+body.high-contrast .bg-blue-100 {
+	background-color: #000080 !important;
+	color: #fff !important;
+}
+
+body.high-contrast .bg-gray-100 {
+	background-color: #333 !important;
+	color: #fff !important;
+}
+
+body.high-contrast .border-gray-200,
+body.high-contrast .border-blue-200 {
+	border-color: #fff !important;
+}
+
+body.high-contrast .shadow-md {
+	box-shadow: 0 0 0 1px #fff !important;
+}
+
+body.high-contrast .text-blue-600,
+body.high-contrast .text-blue-700,
+body.high-contrast .text-blue-800,
+body.high-contrast .text-blue-900 {
+	color: #40c8ff !important;
+}
+
+body.high-contrast .input-field {
+	background-color: #000 !important;
+	color: #fff !important;
+	border-color: #fff !important;
+}
+
+/* Animations réduites */
+body.reduced-motion * {
+	animation: none !important;
+	transition: none !important;
+}
+
+/* Amélioration de la lisibilité */
+.input-field::placeholder {
+	opacity: 0.7;
+}
+
+/* Focus styles améliorés pour l'accessibilité */
+a:focus,
+button:focus,
+input:focus,
+select:focus {
+	outline: 3px solid #4299e1 !important;
+	outline-offset: 2px !important;
+}
+
+body.high-contrast a:focus,
+body.high-contrast button:focus,
+body.high-contrast input:focus,
+body.high-contrast select:focus {
+	outline: 3px solid #fff !important;
+}
+
+/* Ajustements pour l'accessibilité mobile */
+@media (max-width: 640px) {
+	.input-field,
+	.btn-primary,
+	.btn-secondary {
+		padding-top: 0.75rem;
+		padding-bottom: 0.75rem;
+		font-size: 1rem;
+	}
+}

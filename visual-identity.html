@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Identité Visuelle BAYMED</title>
+		<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+		<style>
+			/* Styles généraux */
+			body {
+				font-family: "Poppins", sans-serif;
+				margin: 0;
+				padding: 20px;
+				background-color: #f0f6ff;
+				color: #333;
+			}
+
+			.container {
+				max-width: 1000px;
+				margin: 0 auto;
+				background-color: white;
+				border-radius: 15px;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+				padding: 30px;
+			}
+
+			h1 {
+				color: #3b82f6;
+				text-align: center;
+				margin-bottom: 30px;
+				font-size: 28px;
+			}
+
+			h2 {
+				color: #2563eb;
+				font-size: 22px;
+				margin-top: 40px;
+				margin-bottom: 20px;
+			}
+
+			.header {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-bottom: 40px;
+			}
+
+			.logo {
+				display: flex;
+				align-items: center;
+				font-size: 32px;
+				font-weight: bold;
+				color: #3b82f6;
+			}
+
+			.logo-icon {
+				width: 45px;
+				height: 45px;
+				margin-right: 15px;
+				background-color: #3b82f6;
+				border-radius: 50%;
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.logo-icon::before {
+				content: "";
+				position: absolute;
+				width: 30px;
+				height: 24px;
+				background-color: white;
+				border-radius: 30px 30px 0 0;
+				transform: rotate(45deg);
+				top: 8px;
+				left: 8px;
+			}
+
+			.logo-icon::after {
+				content: "";
+				position: absolute;
+				width: 8px;
+				height: 8px;
+				background-color: #10b981;
+				border-radius: 50%;
+				top: 0;
+				right: 0;
+			}
+
+			/* Styles pour la palette de couleurs */
+			.color-section {
+				margin-bottom: 40px;
+			}
+
+			.color-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 20px;
+			}
+
+			.color-card {
+				border-radius: 10px;
+				overflow: hidden;
+				box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+			}
+
+			.color-sample {
+				height: 120px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: white;
+				font-weight: bold;
+				position: relative;
+			}
+
+			.color-info {
+				padding: 15px;
+				background-color: white;
+			}
+
+			.color-name {
+				font-weight: bold;
+				margin-bottom: 5px;
+			}
+
+			.color-hex {
+				font-family: monospace;
+				font-size: 14px;
+				color: #666;
+			}
+
+			.color-usage {
+				font-size: 13px;
+				margin-top: 10px;
+				color: #555;
+				line-height: 1.4;
+			}
+
+			/* Exemples d'utilisation */
+			.examples-section {
+				margin-top: 50px;
+			}
+
+			.examples-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 25px;
+			}
+
+			.example-card {
+				border-radius: 10px;
+				overflow: hidden;
+				box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+				display: flex;
+				flex-direction: column;
+			}
+
+			.example-title {
+				padding: 15px;
+				background-color: #f8fafc;
+				font-weight: bold;
+				color: #1e3a8a;
+				border-bottom: 1px solid #e2e8f0;
+			}
+
+			.example-content {
+				padding: 20px;
+				flex-grow: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 15px;
+			}
+
+			/* Boutons d'exemple */
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				padding: 10px 20px;
+				border-radius: 8px;
+				font-weight: 600;
+				cursor: pointer;
+				transition: all 0.2s ease;
+			}
+
+			.btn-primary {
+				background-color: #3b82f6;
+				color: white;
+				box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+			}
+
+			.btn-secondary {
+				background-color: #e5e7eb;
+				color: #1f2937;
+			}
+
+			.btn-success {
+				background-color: #10b981;
+				color: white;
+			}
+
+			/* Exemples de cartes */
+			.card-example {
+				background-color: white;
+				border-radius: 8px;
+				padding: 15px;
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+				margin-bottom: 10px;
+			}
+
+			.card-blue {
+				border-left: 4px solid #3b82f6;
+			}
+
+			.card-success {
+				border-left: 4px solid #10b981;
+			}
+
+			/* Exemples de texte */
+			.text-example-container {
+				display: flex;
+				flex-direction: column;
+				gap: 15px;
+			}
+
+			.text-primary {
+				color: #3b82f6;
+				font-weight: bold;
+				font-size: 18px;
+			}
+
+			.text-secondary {
+				color: #6b7280;
+				font-size: 14px;
+			}
+
+			.text-success {
+				color: #10b981;
+				font-weight: 500;
+			}
+
+			.text-danger {
+				color: #ef4444;
+			}
+
+			/* Exemples d'icônes */
+			.icon-grid {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 15px;
+			}
+
+			.icon-example {
+				width: 40px;
+				height: 40px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: #eff6ff;
+				border-radius: 8px;
+				color: #3b82f6;
+			}
+
+			/* Responsive */
+			@media (max-width: 768px) {
+				.color-grid,
+				.examples-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.container {
+					padding: 15px;
+				}
+			}
+		</style>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.0.3/src/fill/style.min.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<div class="logo">
+					BAYMED
+				</div>
+			</div>
+
+			<h1>Identité Visuelle BAYMED</h1>
+
+			<div class="color-section">
+				<h2>Palette de couleurs principale</h2>
+				<div class="color-grid">
+					<div class="color-card">
+						<div class="color-sample" style="background-color: #3b82f6">Bleu primaire</div>
+						<div class="color-info">
+							<div class="color-name">Bleu primaire</div>
+							<div class="color-hex">#3B82F6</div>
+							<div class="color-usage">Utilisé pour les éléments principaux, boutons d'action, liens et éléments interactifs importants.</div>
+						</div>
+					</div>
+
+					<div class="color-card">
+						<div class="color-sample" style="background-color: #2563eb; color: white">Bleu foncé</div>
+						<div class="color-info">
+							<div class="color-name">Bleu foncé</div>
+							<div class="color-hex">#2563EB</div>
+							<div class="color-usage">Utilisé pour les titres, hover des boutons principaux et éléments d'accentuation.</div>
+						</div>
+					</div>
+
+					<div class="color-card">
+						<div class="color-sample" style="background-color: #eff6ff; color: #1e3a8a">Bleu clair</div>
+						<div class="color-info">
+							<div class="color-name">Bleu clair</div>
+							<div class="color-hex">#EFF6FF</div>
+							<div class="color-usage">Arrière-plans secondaires, cartes et éléments moins mis en avant.</div>
+						</div>
+					</div>
+
+					<div class="color-card">
+						<div class="color-sample" style="background-color: #10b981; color: white">Vert</div>
+						<div class="color-info">
+							<div class="color-name">Vert</div>
+							<div class="color-hex">#10B981</div>
+							<div class="color-usage">Messages de succès, confirmations et validations d'actions.</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="color-section">
+				<h2>Palette de couleurs secondaire</h2>
+				<div class="color-grid">
+					<div class="color-card">
+						<div class="color-sample" style="background-color: #ffffff; color: #333; border: 1px solid #e5e7eb">Blanc</div>
+						<div class="color-info">
+							<div class="color-name">Blanc</div>
+							<div class="color-hex">#FFFFFF</div>
+							<div class="color-usage">Arrière-plans principaux, cartes et surfaces de contenu.</div>
+						</div>
+					</div>
+
+					<div class="color-card">
+						<div class="color-sample" style="background-color: #6b7280; color: white">Gris</div>
+						<div class="color-info">
+							<div class="color-name">Gris</div>
+							<div class="color-hex">#6B7280</div>
+							<div class="color-usage">Textes secondaires et éléments moins importants.</div>
+						</div>
+					</div>
+
+					<div class="color-card">
+						<div class="color-sample" style="background-color: #e5e7eb; color: #333">Gris clair</div>
+						<div class="color-info">
+							<div class="color-name">Gris clair</div>
+							<div class="color-hex">#E5E7EB</div>
+							<div class="color-usage">Bordures, séparateurs et arrière-plans tertiaires.</div>
+						</div>
+					</div>
+
+					<div class="color-card">
+						<div class="color-sample" style="background-color: #ef4444; color: white">Rouge</div>
+						<div class="color-info">
+							<div class="color-name">Rouge</div>
+							<div class="color-hex">#EF4444</div>
+							<div class="color-usage">Messages d'erreur, alertes et éléments d'alerte.</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="examples-section">
+				<h2>Exemples d'utilisation</h2>
+				<div class="examples-grid">
+					<div class="example-card">
+						<div class="example-title">Boutons</div>
+						<div class="example-content">
+							<div class="btn btn-primary">
+								<i class="ph-fill ph-check-circle" style="margin-right: 8px"></i>
+								Confirmer le rendez-vous
+							</div>
+
+							<div class="btn btn-secondary">
+								<i class="ph-fill ph-x" style="margin-right: 8px"></i>
+								Annuler
+							</div>
+
+							<div class="btn btn-success">
+								<i class="ph-fill ph-check" style="margin-right: 8px"></i>
+								Valider
+							</div>
+						</div>
+					</div>
+
+					<div class="example-card">
+						<div class="example-title">Cartes et conteneurs</div>
+						<div class="example-content">
+							<div class="card-example card-blue">
+								<div style="font-weight: 600; color: #3b82f6; margin-bottom: 5px">Rendez-vous confirmé</div>
+								<div style="font-size: 14px">Médecin généraliste, 15/05 à 14:30</div>
+							</div>
+
+							<div class="card-example card-success">
+								<div style="font-weight: 600; color: #10b981; margin-bottom: 5px">Ordonnance disponible</div>
+								<div style="font-size: 14px">Dr. Martin - 11/04/2025</div>
+							</div>
+
+							<div class="card-example" style="background-color: #eff6ff">
+								<div style="font-weight: 600; margin-bottom: 5px">Choisir un praticien</div>
+								<div style="font-size: 14px; color: #6b7280">Généraliste, cardiologue, ostéopathe...</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="example-card">
+						<div class="example-title">Textes et icônes</div>
+						<div class="example-content">
+							<div class="text-example-container">
+								<div class="text-primary">Prise de rendez-vous</div>
+								<div class="text-secondary">Sélectionnez un praticien et une date</div>
+								<div class="text-success">
+									<i class="ph-fill ph-check-circle" style="margin-right: 5px"></i>
+									Votre commande est confirmée
+								</div>
+								<div class="text-danger">
+									<i class="ph-fill ph-warning" style="margin-right: 5px"></i>
+									Veuillez remplir tous les champs
+								</div>
+							</div>
+
+							<div class="icon-grid">
+								<div class="icon-example">
+									<i class="ph-fill ph-calendar-plus"></i>
+								</div>
+								<div class="icon-example">
+									<i class="ph-fill ph-pill"></i>
+								</div>
+								<div class="icon-example">
+									<i class="ph-fill ph-file-text"></i>
+								</div>
+								<div class="icon-example">
+									<i class="ph-fill ph-user"></i>
+								</div>
+								<div class="icon-example">
+									<i class="ph-fill ph-heart-straight"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

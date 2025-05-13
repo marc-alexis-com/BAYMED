@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BAYMED - Accueil</title>
+		<link rel="stylesheet" href="./src/output.css" />
+		<link rel="stylesheet" href="./src/custom.css" />
+		<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+		<style>
+			/* Styles additionnels pour la mise en page */
+			body {
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+			}
+
+			main {
+				flex: 1;
+			}
+
+			/* Styles pour les transitions */
+			.modal-transition {
+				transition: opacity 0.3s ease, transform 0.3s ease;
+			}
+
+			.modal-hidden {
+				opacity: 0;
+				transform: scale(0.95);
+				pointer-events: none;
+			}
+
+			.modal-visible {
+				opacity: 1;
+				transform: scale(1);
+				pointer-events: auto;
+			}
+
+			/* Styles pour les boutons d'accessibilité avec un état actif */
+			.accessibility-btn {
+				transition: all 0.2s ease;
+			}
+
+			.accessibility-btn.active {
+				background-color: #3b82f6;
+				color: white;
+			}
+		</style>
+	</head>
+	<body class="bg-blue-50">
+		<header class="bg-white shadow-md p-4">
+			<div class="max-w-5xl mx-auto flex justify-between items-center">
+				<div class="flex items-center">
+					<i class="ph-fill ph-heart-straight text-blue-600 text-3xl mr-2"></i>
+					<div>
+						<h1 class="text-2xl font-bold text-blue-800">BAYMED</h1>
+						<p class="text-sm text-gray-600">Baymed.fr</p>
+					</div>
+				</div>
+				<button id="accessibilityBtn" class="text-blue-600 hover:text-blue-800 font-medium flex items-center cursor-pointer">
+					<i class="ph ph-wheelchair text-xl mr-1"></i>
+					Options d'accessibilité
+				</button>
+			</div>
+		</header>
+
+		<main class="max-w-2xl mx-auto p-6 pb-16">
+			<div class="text-center mb-8">
+				<h2 class="text-3xl font-bold text-blue-900">Bienvenue sur BAYMED</h2>
+				<p class="text-xl text-gray-600 mt-2">Votre santé, en toute simplicité</p>
+			</div>
+
+			<div class="space-y-6">
+				<a href="rendez-vous.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center cursor-pointer">
+					<div class="flex justify-center items-center mb-4">
+						<i class="ph-fill ph-calendar-check text-blue-600 text-4xl"></i>
+					</div>
+					<h3 class="text-2xl font-bold text-blue-700 mb-2">Je prends rendez-vous</h3>
+					<p class="text-gray-600">Consulter un médecin généraliste, spécialiste ou autre praticien</p>
+				</a>
+
+				<a href="pharmacie.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center cursor-pointer">
+					<div class="flex justify-center items-center mb-4">
+						<i class="ph-fill ph-pill text-blue-600 text-4xl"></i>
+					</div>
+					<h3 class="text-2xl font-bold text-blue-700 mb-2">Ma pharmacie</h3>
+					<p class="text-gray-600">Commander vos médicaments ou choisir une pharmacie pour un retrait</p>
+				</a>
+
+				<a href="documents.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center cursor-pointer">
+					<div class="flex justify-center items-center mb-4">
+						<i class="ph-fill ph-file-text text-blue-600 text-4xl"></i>
+					</div>
+					<h3 class="text-2xl font-bold text-blue-700 mb-2">Mes documents</h3>
+					<p class="text-gray-600">Accéder à vos ordonnances et autres documents médicaux</p>
+				</a>
+			</div>
+		</main>
+
+		<footer class="bg-white py-6 border-t border-gray-200 mt-auto">
+			<div class="max-w-5xl mx-auto text-center">
+				<p class="text-gray-600">© 2025 BAYMED - Tous droits réservés</p>
+				<div class="mt-2">
+					<a href="aide.html" class="text-blue-600 hover:text-blue-800 mx-2 cursor-pointer">Besoin d'aide?</a>
+					<a href="#" class="text-blue-600 hover:text-blue-800 mx-2 cursor-pointer">Mentions légales</a>
+					<a href="#" class="text-blue-600 hover:text-blue-800 mx-2 cursor-pointer">Confidentialité</a>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Modal d'accessibilité (avec transition) -->
+		<div id="accessibilityModal" class="fixed inset-0 z-50 modal-transition modal-hidden">
+			<div class="absolute inset-0 bg-black bg-opacity-50"></div>
+			<div class="relative bg-white p-6 rounded-xl max-w-md w-full mx-auto mt-20 shadow-lg">
+				<div class="flex justify-between items-center mb-4">
+					<h3 class="text-2xl font-bold text-blue-800">Options d'accessibilité</h3>
+					<button id="closeModal" class="text-gray-500 hover:text-gray-700 cursor-pointer">
+						<i class="ph ph-x text-2xl"></i>
+					</button>
+				</div>
+
+				<div class="space-y-6">
+					<div>
+						<label class="block text-lg mb-3 font-medium">Taille du texte</label>
+						<div class="flex space-x-2">
+							<button class="accessibility-btn text-sm flex-1 py-2 px-3 rounded-lg border border-gray-300 hover:bg-blue-100 cursor-pointer" data-size="small">Petit</button>
+							<button class="accessibility-btn text-base flex-1 py-2 px-3 rounded-lg border border-gray-300 hover:bg-blue-100 active cursor-pointer" data-size="medium">Moyen</button>
+							<button class="accessibility-btn text-lg flex-1 py-2 px-3 rounded-lg border border-gray-300 hover:bg-blue-100 cursor-pointer" data-size="large">Grand</button>
+						</div>
+					</div>
+
+					<div>
+						<label class="block text-lg mb-3 font-medium">Contraste</label>
+						<div class="flex space-x-2">
+							<button class="accessibility-btn flex-1 py-2 px-3 rounded-lg border border-gray-300 hover:bg-blue-100 active cursor-pointer" data-contrast="normal">
+								<span>Normal</span>
+							</button>
+							<button class="accessibility-btn flex-1 py-2 px-3 rounded-lg border border-gray-300 hover:bg-blue-100 cursor-pointer" data-contrast="high">
+								<span>Élevé</span>
+							</button>
+						</div>
+					</div>
+
+					<div>
+						<label class="block text-lg mb-3 font-medium">Animations</label>
+						<div class="flex space-x-2">
+							<button class="accessibility-btn flex-1 py-2 px-3 rounded-lg border border-gray-300 hover:bg-blue-100 active cursor-pointer" data-motion="normal">
+								<span>Normales</span>
+							</button>
+							<button class="accessibility-btn flex-1 py-2 px-3 rounded-lg border border-gray-300 hover:bg-blue-100 cursor-pointer" data-motion="reduced">
+								<span>Réduites</span>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="mt-6 text-center">
+					<button id="saveAccessibility" class="btn-primary cursor-pointer">
+						<i class="ph ph-check mr-1"></i>
+						Enregistrer mes préférences
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="./src/global.js"></script>
+		<script>
+			// Gestion du modal d'accessibilité avec transition
+			const accessibilityBtn = document.getElementById("accessibilityBtn");
+			const accessibilityModal = document.getElementById("accessibilityModal");
+			const closeModal = document.getElementById("closeModal");
+			const saveAccessibility = document.getElementById("saveAccessibility");
+
+			// Ouvrir le modal avec transition
+			accessibilityBtn.addEventListener("click", () => {
+				accessibilityModal.classList.remove("modal-hidden");
+				accessibilityModal.classList.add("modal-visible");
+
+				// Charger l'état actuel des préférences
+				loadAccessibilityPreferences();
+			});
+
+			// Fermer le modal avec transition
+			function closeAccessibilityModal() {
+				accessibilityModal.classList.remove("modal-visible");
+				accessibilityModal.classList.add("modal-hidden");
+			}
+
+			closeModal.addEventListener("click", closeAccessibilityModal);
+
+			// Cliquer en dehors du modal pour fermer
+			accessibilityModal.addEventListener("click", (e) => {
+				if (e.target === accessibilityModal) {
+					closeAccessibilityModal();
+				}
+			});
+
+			// Gestion des boutons d'accessibilité
+			const fontSizeButtons = document.querySelectorAll("[data-size]");
+			const contrastButtons = document.querySelectorAll("[data-contrast]");
+			const motionButtons = document.querySelectorAll("[data-motion]");
+
+			// Fonction pour activer un bouton dans un groupe
+			function setActiveButton(buttons, activeValue) {
+				buttons.forEach((btn) => {
+					if (btn.getAttribute("data-size") === activeValue || btn.getAttribute("data-contrast") === activeValue || btn.getAttribute("data-motion") === activeValue) {
+						btn.classList.add("active");
+					} else {
+						btn.classList.remove("active");
+					}
+				});
+			}
+
+			// Gestion de la taille du texte
+			fontSizeButtons.forEach((btn) => {
+				btn.addEventListener("click", () => {
+					const size = btn.getAttribute("data-size");
+					setFontSize(size);
+					setActiveButton(fontSizeButtons, size);
+				});
+			});
+
+			// Gestion du contraste
+			contrastButtons.forEach((btn) => {
+				btn.addEventListener("click", () => {
+					const contrast = btn.getAttribute("data-contrast");
+					setContrast(contrast);
+					setActiveButton(contrastButtons, contrast);
+				});
+			});
+
+			// Gestion des animations
+			motionButtons.forEach((btn) => {
+				btn.addEventListener("click", () => {
+					const motion = btn.getAttribute("data-motion");
+					setReducedMotion(motion === "reduced");
+					setActiveButton(motionButtons, motion);
+				});
+			});
+
+			// Charger les préférences actuelles
+			function loadAccessibilityPreferences() {
+				const fontSize = localStorage.getItem("baymed_fontSize") || "medium";
+				const contrast = localStorage.getItem("baymed_contrast") || "normal";
+				const reducedMotion = localStorage.getItem("baymed_reducedMotion") === "true" ? "reduced" : "normal";
+
+				setActiveButton(fontSizeButtons, fontSize);
+				setActiveButton(contrastButtons, contrast);
+				setActiveButton(motionButtons, reducedMotion);
+			}
+
+			// Enregistrer les préférences
+			saveAccessibility.addEventListener("click", () => {
+				// Les préférences sont déjà enregistrées dans localStorage par les fonctions setFontSize, etc.
+				closeAccessibilityModal();
+
+				// Afficher un message de confirmation
+				const messageEl = document.createElement("div");
+				messageEl.className = "fixed bottom-4 right-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-md transition-opacity duration-300";
+				messageEl.innerHTML = '<i class="ph ph-check mr-1"></i> Vos préférences ont été enregistrées';
+
+				document.body.appendChild(messageEl);
+
+				setTimeout(() => {
+					messageEl.style.opacity = "0";
+					setTimeout(() => {
+						document.body.removeChild(messageEl);
+					}, 300);
+				}, 3000);
+			});
+
+			// Initialiser l'affichage des préférences au chargement de la page
+			document.addEventListener("DOMContentLoaded", loadAccessibilityPreferences);
+		</script>
+	</body>
+</html>

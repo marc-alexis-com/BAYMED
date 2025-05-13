@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BAYMED - Ma pharmacie</title>
+		<link rel="stylesheet" href="./src/output.css" />
+		<link rel="stylesheet" href="./src/custom.css" />
+		<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+		<style>
+			/* Styles additionnels pour la mise en page */
+			body {
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+			}
+
+			main {
+				flex: 1;
+			}
+
+			/* Animation pour les boutons sélectionnés */
+			.btn-selected {
+				transition: all 0.2s ease;
+				transform: scale(1.02);
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+			}
+
+			/* Effet de hover amélioré pour les boutons */
+			.button-hover {
+				transition: all 0.2s ease;
+			}
+
+			.button-hover:hover {
+				transform: translateY(-2px);
+			}
+
+			/* Styles pour l'apparition progressive des sections */
+			.fade-in {
+				animation: fadeIn 0.5s ease forwards;
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(10px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			/* Style pour les inputs et selects */
+			.input-field:focus {
+				border-color: #3b82f6;
+				box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+			}
+
+			/* Style pour les cartes d'options */
+			.option-card {
+				transition: all 0.3s ease;
+			}
+
+			.option-card:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+			}
+
+			/* Animation de chargement pour le bouton de soumission */
+			@keyframes pulse {
+				0% {
+					opacity: 0.6;
+				}
+				50% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0.6;
+				}
+			}
+
+			.btn-loading {
+				animation: pulse 1.5s infinite;
+				pointer-events: none;
+			}
+		</style>
+	</head>
+	<body class="bg-blue-50">
+		<header class="bg-white shadow-md p-4">
+			<div class="max-w-5xl mx-auto flex justify-between items-center">
+				<div class="flex items-center">
+					<i class="ph-fill ph-heart-straight text-blue-600 text-3xl mr-2"></i>
+					<div>
+						<h1 class="text-2xl font-bold text-blue-800">BAYMED</h1>
+						<p class="text-sm text-gray-600">Baymed.fr</p>
+					</div>
+				</div>
+				<nav class="flex items-center">
+					<a href="accueil.html" class="nav-link mx-6 flex items-center text-blue-600 hover:text-blue-800 cursor-pointer">
+						<i class="ph ph-house mr-1"></i>
+						Accueil
+					</a>
+					<a href="aide.html" class="nav-link mx-3 flex items-center text-blue-600 hover:text-blue-800 cursor-pointer">
+						<i class="ph ph-question mr-1"></i>
+						Aide
+					</a>
+				</nav>
+			</div>
+		</header>
+
+		<main class="max-w-4xl mx-auto p-6 pb-16">
+			<h2 class="text-3xl font-bold text-blue-900 mb-8 text-center flex items-center justify-center">
+				<i class="ph-fill ph-pill text-blue-700 text-3xl mr-3"></i>
+				Ma pharmacie
+			</h2>
+
+			<div class="bg-white rounded-xl shadow-md p-6 mb-8">
+				<h3 class="text-2xl font-bold text-blue-700 mb-6 flex items-center">
+					<i class="ph ph-truck text-blue-600 mr-2"></i>
+					Choix du mode de livraison
+				</h3>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					<button id="deliveryBtn" class="delivery-option option-card bg-blue-100 hover:bg-blue-200 text-blue-800 font-bold py-6 px-6 rounded-xl text-xl transition-all button-hover flex flex-col items-center cursor-pointer">
+						<i class="ph-fill ph-package text-blue-600 text-4xl mb-3"></i>
+						<span class="text-2xl mb-2">Livraison sécurisée</span>
+						<span class="text-base text-blue-600 flex items-center">
+							<i class="ph ph-clock mr-1"></i>
+							Livraison à domicile sous 24 à 48h
+						</span>
+					</button>
+
+					<button id="pickupBtn" class="delivery-option option-card bg-gray-100 hover:bg-blue-200 text-gray-800 font-bold py-6 px-6 rounded-xl text-xl transition-all button-hover flex flex-col items-center cursor-pointer">
+						<i class="ph ph-storefront text-gray-600 text-4xl mb-3"></i>
+						<span class="text-2xl mb-2">Retrait en pharmacie</span>
+						<span class="text-base text-gray-600 flex items-center">
+							<i class="ph ph-clock-countdown mr-1"></i>
+							Disponible sous 2 heures
+						</span>
+					</button>
+				</div>
+			</div>
+
+			<!-- Section de livraison - affichée par défaut -->
+			<div id="deliverySection" class="bg-white rounded-xl shadow-md p-6 fade-in">
+				<h3 class="text-2xl font-bold text-blue-700 mb-6 flex items-center">
+					<i class="ph ph-map-pin text-blue-600 mr-2"></i>
+					Adresse de livraison
+				</h3>
+
+				<form id="deliveryForm" class="space-y-4">
+					<div>
+						<label for="address" class="block text-lg font-medium text-gray-700 mb-2 flex items-center">
+							<i class="ph ph-house-line mr-1"></i>
+							Adresse postale
+						</label>
+						<input type="text" id="address" name="address" class="input-field cursor-text" placeholder="Numéro et nom de rue" />
+					</div>
+
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+						<div>
+							<label for="postalCode" class="block text-lg font-medium text-gray-700 mb-2 flex items-center">
+								<i class="ph ph-map-pin-line mr-1"></i>
+								Code postal
+							</label>
+							<input type="text" id="postalCode" name="postalCode" class="input-field cursor-text" placeholder="75000" />
+						</div>
+
+						<div>
+							<label for="city" class="block text-lg font-medium text-gray-700 mb-2 flex items-center">
+								<i class="ph ph-buildings mr-1"></i>
+								Ville
+							</label>
+							<input type="text" id="city" name="city" class="input-field cursor-text" placeholder="Paris" />
+						</div>
+					</div>
+
+					<div>
+						<label for="additionalInfo" class="block text-lg font-medium text-gray-700 mb-2 flex items-center">
+							<i class="ph ph-info mr-1"></i>
+							Informations complémentaires (optionnel)
+						</label>
+						<input type="text" id="additionalInfo" name="additionalInfo" class="input-field cursor-text" placeholder="Digicode, étage, etc." />
+					</div>
+
+					<div class="mt-6 text-center">
+						<button type="submit" id="submitDelivery" class="btn-primary flex items-center justify-center cursor-pointer">
+							<i class="ph ph-check-circle mr-2"></i>
+							Valider la livraison
+						</button>
+					</div>
+				</form>
+			</div>
+
+			<!-- Section de retrait en pharmacie - cachée par défaut -->
+			<!-- Section de retrait en pharmacie - cachée par défaut -->
+			<div id="pickupSection" class="bg-white rounded-xl shadow-md p-6 hidden">
+				<h3 class="text-2xl font-bold text-blue-700 mb-6 flex items-center">
+					<i class="ph ph-storefront text-blue-600 mr-2"></i>
+					Choix de ma pharmacie
+				</h3>
+
+				<!-- Carte modifiée -->
+				<div class="mb-6 bg-gray-100 rounded-lg overflow-hidden">
+					<div id="pharmacyMap" class="w-full h-80 relative" style="background-image: url('./map.png'); background-size: cover; background-position: center">
+						<!-- Points d'intérêt sur la carte (marqueurs cliquables) -->
+						<div class="absolute top-1/4 left-1/4 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center cursor-pointer pharmacy-marker" data-pharmacy="1" title="Pharmacie du Centre">
+							<i class="ph-fill ph-first-aid-kit text-white"></i>
+						</div>
+						<div class="absolute top-1/3 right-1/3 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center cursor-pointer pharmacy-marker" data-pharmacy="2" title="Pharmacie des Alliés">
+							<i class="ph-fill ph-first-aid-kit text-white"></i>
+						</div>
+						<div class="absolute bottom-1/4 right-1/4 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center cursor-pointer pharmacy-marker" data-pharmacy="3" title="Pharmacie du Marché">
+							<i class="ph-fill ph-first-aid-kit text-white"></i>
+						</div>
+					</div>
+				</div>
+
+				<div class="mb-6">
+					<label for="pharmacy" class="block text-lg font-medium text-gray-700 mb-2 flex items-center">
+						<i class="ph ph-buildings mr-1"></i>
+						Sélectionner une pharmacie
+					</label>
+					<select id="pharmacy" name="pharmacy" class="input-field cursor-pointer">
+						<option value="" disabled selected>Choisir une pharmacie</option>
+						<option value="1">Pharmacie du Centre - 15 rue de Paris</option>
+						<option value="2">Pharmacie des Alliés - 8 boulevard Victor Hugo</option>
+						<option value="3">Pharmacie du Marché - 3 place de la République</option>
+					</select>
+				</div>
+
+				<div class="mb-6">
+					<label for="pickupTime" class="block text-lg font-medium text-gray-700 mb-2 flex items-center">
+						<i class="ph ph-clock mr-1"></i>
+						Heure de retrait
+					</label>
+					<select id="pickupTime" name="pickupTime" class="input-field cursor-pointer">
+						<option value="" disabled selected>Choisir une heure</option>
+						<option value="14:00">14:00</option>
+						<option value="14:30">14:30</option>
+						<option value="15:00">15:00</option>
+						<option value="15:30">15:30</option>
+						<option value="16:00">16:00</option>
+						<option value="16:30">16:30</option>
+						<option value="17:00">17:00</option>
+						<option value="17:30">17:30</option>
+						<option value="18:00">18:00</option>
+					</select>
+				</div>
+
+				<div class="mt-6 text-center">
+					<button id="validatePickup" class="btn-primary flex items-center justify-center cursor-pointer">
+						<i class="ph ph-check-circle mr-2"></i>
+						Valider le retrait
+					</button>
+				</div>
+			</div>
+
+			<!-- Section de confirmation - cachée par défaut -->
+			<div id="confirmationSection" class="bg-white rounded-xl shadow-md p-6 mt-8 hidden">
+				<div class="text-center">
+					<i class="ph-fill ph-check-circle text-green-600 text-6xl mb-4"></i>
+					<h3 class="text-2xl font-bold text-green-700 mb-4">Votre commande est confirmée !</h3>
+					<p id="confirmationDetails" class="text-lg text-center mb-6 bg-green-50 p-4 rounded-lg inline-block"></p>
+					<div class="mt-4">
+						<a href="accueil.html" class="btn-primary inline-flex items-center cursor-pointer">
+							<i class="ph ph-house mr-2"></i>
+							Retour à l'accueil
+						</a>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<footer class="bg-white py-6 border-t border-gray-200 mt-auto">
+			<div class="max-w-5xl mx-auto text-center">
+				<p class="text-gray-600">© 2025 BAYMED - Tous droits réservés</p>
+				<div class="mt-2 flex flex-wrap justify-center">
+					<a href="rendez-vous.html" class="text-blue-600 hover:text-blue-800 mx-2 my-1 flex items-center cursor-pointer">
+						<i class="ph ph-calendar-check mr-1"></i>
+						Mes rendez-vous
+					</a>
+					<a href="aide.html" class="text-blue-600 hover:text-blue-800 mx-2 my-1 flex items-center cursor-pointer">
+						<i class="ph ph-question mr-1"></i>
+						Besoin d'aide?
+					</a>
+					<a href="documents.html" class="text-blue-600 hover:text-blue-800 mx-2 my-1 flex items-center cursor-pointer">
+						<i class="ph ph-file-text mr-1"></i>
+						Mes documents
+					</a>
+				</div>
+			</div>
+		</footer>
+
+		<script src="./src/global.js"></script>
+		<script>
+			// Gestion des options de livraison
+			const deliveryBtn = document.getElementById("deliveryBtn");
+			const pickupBtn = document.getElementById("pickupBtn");
+			const deliverySection = document.getElementById("deliverySection");
+			const pickupSection = document.getElementById("pickupSection");
+
+			deliveryBtn.addEventListener("click", () => {
+				// Activer le bouton de livraison
+				deliveryBtn.classList.remove("bg-gray-100", "text-gray-800");
+				deliveryBtn.classList.add("bg-blue-100", "text-blue-800", "btn-selected");
+				deliveryBtn.querySelector("i").classList.add("text-blue-600");
+				deliveryBtn.querySelector("i").classList.remove("text-gray-600");
+
+				// Désactiver le bouton de retrait
+				pickupBtn.classList.remove("bg-blue-100", "text-blue-800", "btn-selected");
+				pickupBtn.classList.add("bg-gray-100", "text-gray-800");
+				pickupBtn.querySelector("i").classList.add("text-gray-600");
+				pickupBtn.querySelector("i").classList.remove("text-blue-600");
+
+				// Afficher la section de livraison, cacher celle de retrait avec animation
+				pickupSection.classList.add("hidden");
+
+				// Transition pour l'animation
+				deliverySection.classList.remove("hidden");
+				deliverySection.classList.add("fade-in");
+
+				// Animation du bouton
+				deliveryBtn.animate([{ transform: "scale(1.05)" }, { transform: "scale(1)" }], { duration: 200 });
+			});
+
+			pickupBtn.addEventListener("click", () => {
+				// Activer le bouton de retrait
+				pickupBtn.classList.remove("bg-gray-100", "text-gray-800");
+				pickupBtn.classList.add("bg-blue-100", "text-blue-800", "btn-selected");
+				pickupBtn.querySelector("i").classList.add("text-blue-600");
+				pickupBtn.querySelector("i").classList.remove("text-gray-600");
+
+				// Désactiver le bouton de livraison
+				deliveryBtn.classList.remove("bg-blue-100", "text-blue-800", "btn-selected");
+				deliveryBtn.classList.add("bg-gray-100", "text-gray-800");
+				deliveryBtn.querySelector("i").classList.add("text-gray-600");
+				deliveryBtn.querySelector("i").classList.remove("text-blue-600");
+
+				// Afficher la section de retrait, cacher celle de livraison avec animation
+				deliverySection.classList.add("hidden");
+
+				// Transition pour l'animation
+				pickupSection.classList.remove("hidden");
+				pickupSection.classList.add("fade-in");
+
+				// Animation du bouton
+				pickupBtn.animate([{ transform: "scale(1.05)" }, { transform: "scale(1)" }], { duration: 200 });
+			});
+
+			// Validation du formulaire de livraison
+			const deliveryForm = document.getElementById("deliveryForm");
+			const submitDelivery = document.getElementById("submitDelivery");
+
+			deliveryForm.addEventListener("submit", (e) => {
+				e.preventDefault();
+
+				const address = document.getElementById("address").value;
+				const postalCode = document.getElementById("postalCode").value;
+				const city = document.getElementById("city").value;
+
+				// Vérification basique des champs
+				if (!address || !postalCode || !city) {
+					// Utiliser la fonction showErrorMessage du global.js
+					showErrorMessage("Veuillez remplir tous les champs obligatoires");
+					return;
+				}
+
+				// Effet de chargement sur le bouton
+				submitDelivery.innerHTML = '<i class="ph ph-circle-notch ph-spin mr-2"></i> Traitement en cours...';
+				submitDelivery.classList.add("btn-loading");
+				submitDelivery.disabled = true;
+
+				// Simuler un temps de traitement
+				setTimeout(() => {
+					// Afficher la confirmation
+					const confirmationSection = document.getElementById("confirmationSection");
+					const confirmationDetails = document.getElementById("confirmationDetails");
+
+					confirmationDetails.innerHTML = `
+                    <div class="flex flex-col items-center text-gray-700">
+                        <div class="flex items-center mb-2">
+                            <i class="ph ph-truck-delivery text-blue-600 mr-2"></i>
+                            <span>Votre commande sera livrée à :</span>
+                        </div>
+                        <div class="font-medium">${address}, ${postalCode} ${city}</div>
+                        <div class="text-sm mt-2 flex items-center">
+                            <i class="ph ph-clock text-blue-600 mr-1"></i>
+                            <span>Délai de livraison : 24 à 48 heures</span>
+                        </div>
+                    </div>
+                `;
+
+					confirmationSection.classList.remove("hidden");
+					confirmationSection.classList.add("fade-in");
+
+					// Réinitialiser le bouton
+					submitDelivery.innerHTML = '<i class="ph ph-check-circle mr-2"></i> Valider la livraison';
+					submitDelivery.classList.remove("btn-loading");
+					submitDelivery.disabled = false;
+
+					// Faire défiler jusqu'à la confirmation
+					confirmationSection.scrollIntoView({ behavior: "smooth" });
+				}, 1500);
+			});
+
+			// Points sur la carte (simulation)
+			const mapPoints = document.querySelectorAll("[data-pharmacy]");
+			const pharmacySelect = document.getElementById("pharmacy");
+
+			mapPoints.forEach((point) => {
+				point.addEventListener("click", () => {
+					const pharmacyId = point.getAttribute("data-pharmacy");
+
+					// Sélectionner l'option correspondante dans le select
+					pharmacySelect.value = pharmacyId;
+
+					// Animation du point
+					point.animate(
+						[
+							{ transform: "scale(1.5)", backgroundColor: "#3B82F6" },
+							{ transform: "scale(1)", backgroundColor: "#3B82F6" },
+						],
+						{ duration: 300 }
+					);
+				});
+
+				// Tooltip au survol
+				point.addEventListener("mouseenter", () => {
+					const tooltip = document.createElement("div");
+					tooltip.className = "absolute -top-10 left-1/2 transform -translate-x-1/2 bg-blue-800 text-white px-3 py-1 rounded text-sm z-10 tooltip";
+					tooltip.textContent = point.getAttribute("title");
+					point.appendChild(tooltip);
+				});
+
+				point.addEventListener("mouseleave", () => {
+					const tooltip = point.querySelector(".tooltip");
+					if (tooltip) point.removeChild(tooltip);
+				});
+			});
+
+			// Validation du retrait en pharmacie
+			const validatePickup = document.getElementById("validatePickup");
+
+			validatePickup.addEventListener("click", () => {
+				const pharmacy = document.getElementById("pharmacy");
+				const pickupTime = document.getElementById("pickupTime");
+
+				if (pharmacy.value === "" || pickupTime.value === "") {
+					// Utiliser la fonction showErrorMessage du global.js
+					showErrorMessage("Veuillez sélectionner une pharmacie et une heure de retrait");
+					return;
+				}
+
+				// Effet de chargement sur le bouton
+				validatePickup.innerHTML = '<i class="ph ph-circle-notch ph-spin mr-2"></i> Traitement en cours...';
+				validatePickup.classList.add("btn-loading");
+				validatePickup.disabled = true;
+
+				// Simuler un temps de traitement
+				setTimeout(() => {
+					// Récupérer le texte de l'option sélectionnée
+					const pharmacyText = pharmacy.options[pharmacy.selectedIndex].text;
+
+					// Afficher la confirmation
+					const confirmationSection = document.getElementById("confirmationSection");
+					const confirmationDetails = document.getElementById("confirmationDetails");
+
+					confirmationDetails.innerHTML = `
+                    <div class="flex flex-col items-center text-gray-700">
+                        <div class="flex items-center mb-2">
+                            <i class="ph ph-storefront text-blue-600 mr-2"></i>
+                            <span>Votre commande sera disponible à :</span>
+                        </div>
+                        <div class="font-medium">${pharmacyText}</div>
+                        <div class="text-sm mt-2 flex items-center">
+                            <i class="ph ph-clock text-blue-600 mr-1"></i>
+                            <span>Heure de retrait : ${pickupTime.value}</span>
+                        </div>
+                    </div>
+                `;
+
+					confirmationSection.classList.remove("hidden");
+					confirmationSection.classList.add("fade-in");
+
+					// Réinitialiser le bouton
+					validatePickup.innerHTML = '<i class="ph ph-check-circle mr-2"></i> Valider le retrait';
+					validatePickup.classList.remove("btn-loading");
+					validatePickup.disabled = false;
+
+					// Faire défiler jusqu'à la confirmation
+					confirmationSection.scrollIntoView({ behavior: "smooth" });
+				}, 1500);
+			});
+		</script>
+	</body>
+</html>

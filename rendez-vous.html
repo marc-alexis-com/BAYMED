@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BAYMED - Prise de rendez-vous</title>
+		<link rel="stylesheet" href="./src/output.css" />
+		<link rel="stylesheet" href="./src/custom.css" />
+		<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+		<style>
+			/* Styles additionnels pour la mise en page */
+			body {
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+			}
+
+			main {
+				flex: 1;
+			}
+
+			/* Animation pour les boutons sélectionnés */
+			.btn-selected {
+				transition: all 0.2s ease;
+				transform: scale(1.02);
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+			}
+
+			/* Effet de hover amélioré pour les boutons */
+			.button-hover {
+				transition: all 0.2s ease;
+			}
+
+			.button-hover:hover {
+				transform: translateY(-2px);
+			}
+
+			/* Styles pour l'apparition progressive des sections */
+			.fade-in {
+				animation: fadeIn 0.5s ease forwards;
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(10px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+		</style>
+	</head>
+	<body class="bg-blue-50">
+		<header class="bg-white shadow-md p-4">
+			<div class="max-w-5xl mx-auto flex justify-between items-center">
+				<div class="flex items-center">
+					<i class="ph-fill ph-heart-straight text-blue-600 text-3xl mr-2"></i>
+					<div>
+						<h1 class="text-2xl font-bold text-blue-800">BAYMED</h1>
+						<p class="text-sm text-gray-600">Baymed.fr</p>
+					</div>
+				</div>
+				<nav class="flex items-center">
+					<a href="accueil.html" class="nav-link mx-3 flex items-center text-blue-600 hover:text-blue-800 cursor-pointer">
+						<i class="ph ph-house mr-1"></i>
+						Accueil
+					</a>
+					<a href="aide.html" class="nav-link mx-3 flex items-center text-blue-600 hover:text-blue-800 cursor-pointer">
+						<i class="ph ph-question mr-1"></i>
+						Aide
+					</a>
+				</nav>
+			</div>
+		</header>
+
+		<main class="max-w-4xl mx-auto p-6 pb-16">
+			<h2 class="text-3xl font-bold text-blue-900 mb-8 text-center flex items-center justify-center">
+				<i class="ph-fill ph-calendar-plus text-blue-700 text-3xl mr-3"></i>
+				Je prends rendez-vous
+			</h2>
+
+			<div class="bg-white rounded-xl shadow-md p-6 mb-8">
+				<h3 class="text-2xl font-bold text-blue-700 mb-6 flex items-center">
+					<i class="ph ph-user-circle-gear text-blue-600 mr-2"></i>
+					Choix du praticien
+				</h3>
+
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+					<button class="practitioner-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-bold py-4 px-6 rounded-xl text-xl transition-all button-hover flex items-center justify-center cursor-pointer" data-type="generaliste">
+						<i class="ph-fill ph-stethoscope mr-2"></i>
+						Généraliste
+					</button>
+					<button class="practitioner-btn bg-gray-100 hover:bg-blue-200 text-gray-800 font-bold py-4 px-6 rounded-xl text-xl transition-all button-hover flex items-center justify-center cursor-pointer" data-type="osteopathe">
+						<i class="ph-fill ph-bone mr-2"></i>
+						Ostéopathe
+					</button>
+					<button class="practitioner-btn bg-gray-100 hover:bg-blue-200 text-gray-800 font-bold py-4 px-6 rounded-xl text-xl transition-all button-hover flex items-center justify-center cursor-pointer" data-type="cardiologue">
+						<i class="ph-fill ph-heartbeat mr-2"></i>
+						Cardiologue
+					</button>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl shadow-md p-6">
+				<h3 class="text-2xl font-bold text-blue-700 mb-6 flex items-center">
+					<i class="ph ph-calendar text-blue-600 mr-2"></i>
+					Choisir la date
+				</h3>
+
+				<div class="grid grid-cols-5 gap-2" id="datesContainer">
+					<!-- Dates dynamiquement générées -->
+				</div>
+
+				<div class="mt-8 text-center hidden" id="timeSlots">
+					<h4 class="text-xl font-bold text-blue-700 mb-4 flex items-center justify-center">
+						<i class="ph ph-clock text-blue-600 mr-2"></i>
+						Choisir un horaire
+					</h4>
+					<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3" id="timeSlotsContainer">
+						<!-- Créneaux générés dynamiquement -->
+					</div>
+				</div>
+
+				<div class="mt-8 text-center hidden" id="confirmationSection">
+					<div class="bg-green-50 border border-green-200 rounded-xl p-6 inline-block">
+						<i class="ph-fill ph-check-circle text-green-600 text-5xl mb-3"></i>
+						<h4 class="text-xl font-bold text-green-700 mb-4">Votre rendez-vous est confirmé !</h4>
+						<p class="text-lg mb-4" id="appointmentDetails"></p>
+						<a href="accueil.html" class="btn-primary inline-flex items-center cursor-pointer">
+							<i class="ph ph-house mr-2"></i>
+							Retour à l'accueil
+						</a>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<footer class="bg-white py-6 border-t border-gray-200 mt-auto">
+			<div class="max-w-5xl mx-auto text-center">
+				<p class="text-gray-600">© 2025 BAYMED - Tous droits réservés</p>
+				<div class="mt-2 flex flex-wrap justify-center">
+					<a href="pharmacie.html" class="text-blue-600 hover:text-blue-800 mx-2 my-1 flex items-center cursor-pointer">
+						<i class="ph ph-pill mr-1"></i>
+						Ma pharmacie
+					</a>
+					<a href="aide.html" class="text-blue-600 hover:text-blue-800 mx-2 my-1 flex items-center cursor-pointer">
+						<i class="ph ph-question mr-1"></i>
+						Besoin d'aide?
+					</a>
+					<a href="documents.html" class="text-blue-600 hover:text-blue-800 mx-2 my-1 flex items-center cursor-pointer">
+						<i class="ph ph-file-text mr-1"></i>
+						Mes documents
+					</a>
+				</div>
+			</div>
+		</footer>
+
+		<script src="./src/global.js"></script>
+		<script>
+			// Variables pour stocker les sélections
+			let selectedPractitioner = "generaliste";
+			let selectedDate = null;
+			let selectedTime = null;
+
+			// Sélection du praticien
+			const practitionerBtns = document.querySelectorAll(".practitioner-btn");
+
+			practitionerBtns.forEach((btn) => {
+				btn.addEventListener("click", () => {
+					// Réinitialiser les boutons
+					practitionerBtns.forEach((b) => {
+						b.classList.remove("bg-blue-100", "text-blue-800", "btn-selected");
+						b.classList.add("bg-gray-100", "text-gray-800");
+					});
+
+					// Activer le bouton sélectionné avec animation
+					btn.classList.remove("bg-gray-100", "text-gray-800");
+					btn.classList.add("bg-blue-100", "text-blue-800", "btn-selected");
+
+					selectedPractitioner = btn.getAttribute("data-type");
+
+					// Animation de feedback
+					btn.animate([{ transform: "scale(1.05)" }, { transform: "scale(1)" }], { duration: 200 });
+				});
+			});
+
+			// Génération des dates (2 semaines à partir d'aujourd'hui)
+			const datesContainer = document.getElementById("datesContainer");
+			const today = new Date();
+
+			for (let i = 0; i < 15; i++) {
+				const date = new Date(today);
+				date.setDate(today.getDate() + i);
+
+				const day = date.getDate().toString().padStart(2, "0");
+				const month = (date.getMonth() + 1).toString().padStart(2, "0");
+
+				const dateBtn = document.createElement("button");
+				dateBtn.className = "date-btn bg-gray-100 hover:bg-blue-200 text-gray-800 font-medium py-3 px-2 rounded-lg text-center transition-all button-hover cursor-pointer";
+				dateBtn.setAttribute("data-date", `${day}/${month}`);
+
+				// Afficher le jour de la semaine pour une meilleure expérience utilisateur
+				const weekdays = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+				const weekday = weekdays[date.getDay()];
+
+				dateBtn.innerHTML = `<div class="text-xs text-gray-500">${weekday}</div><div>${day}/${month}</div>`;
+
+				dateBtn.addEventListener("click", function () {
+					// Réinitialiser tous les boutons de date
+					document.querySelectorAll(".date-btn").forEach((btn) => {
+						btn.classList.remove("bg-blue-100", "text-blue-800", "btn-selected");
+						btn.classList.add("bg-gray-100", "text-gray-800");
+					});
+
+					// Activer le bouton sélectionné avec animation
+					this.classList.remove("bg-gray-100", "text-gray-800");
+					this.classList.add("bg-blue-100", "text-blue-800", "btn-selected");
+
+					selectedDate = this.getAttribute("data-date");
+
+					// Animer le bouton
+					this.animate([{ transform: "scale(1.05)" }, { transform: "scale(1)" }], { duration: 200 });
+
+					// Afficher les créneaux horaires avec animation
+					showTimeSlots();
+				});
+
+				datesContainer.appendChild(dateBtn);
+			}
+
+			// Afficher les créneaux horaires
+			function showTimeSlots() {
+				const timeSlots = document.getElementById("timeSlots");
+
+				// Si déjà visible, ne pas refaire l'animation
+				if (timeSlots.classList.contains("fade-in")) {
+					return;
+				}
+
+				// Afficher avec animation
+				timeSlots.classList.remove("hidden");
+				timeSlots.classList.add("fade-in");
+
+				const timeSlotsContainer = document.getElementById("timeSlotsContainer");
+				timeSlotsContainer.innerHTML = "";
+
+				// Heures génériques (en pratique, cela viendrait d'une API)
+				const hours = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"];
+
+				hours.forEach((hour) => {
+					const timeBtn = document.createElement("button");
+					timeBtn.className = "time-btn bg-gray-100 hover:bg-blue-200 text-gray-800 font-medium py-3 px-2 rounded-lg text-center transition-all button-hover cursor-pointer flex items-center justify-center";
+					timeBtn.setAttribute("data-time", hour);
+					timeBtn.innerHTML = `<i class="ph ph-clock mr-1"></i> ${hour}`;
+
+					timeBtn.addEventListener("click", function () {
+						// Réinitialiser tous les boutons d'heure
+						document.querySelectorAll(".time-btn").forEach((btn) => {
+							btn.classList.remove("bg-blue-100", "text-blue-800", "btn-selected");
+							btn.classList.add("bg-gray-100", "text-gray-800");
+						});
+
+						// Activer le bouton sélectionné
+						this.classList.remove("bg-gray-100", "text-gray-800");
+						this.classList.add("bg-blue-100", "text-blue-800", "btn-selected");
+
+						selectedTime = this.getAttribute("data-time");
+
+						// Animer le bouton
+						this.animate([{ transform: "scale(1.05)" }, { transform: "scale(1)" }], { duration: 200 });
+
+						// Afficher la confirmation
+						showConfirmation();
+					});
+
+					timeSlotsContainer.appendChild(timeBtn);
+				});
+
+				// Faire défiler jusqu'à la section
+				timeSlots.scrollIntoView({ behavior: "smooth", block: "nearest" });
+			}
+
+			// Afficher la confirmation
+			function showConfirmation() {
+				const confirmationSection = document.getElementById("confirmationSection");
+				const appointmentDetails = document.getElementById("appointmentDetails");
+
+				// Convertir les types de praticien pour affichage
+				const practitionerLabels = {
+					generaliste: "Médecin généraliste",
+					osteopathe: "Ostéopathe",
+					cardiologue: "Cardiologue",
+				};
+
+				// Icônes pour chaque type de praticien
+				const practitionerIcons = {
+					generaliste: '<i class="ph-fill ph-stethoscope mr-1"></i>',
+					osteopathe: '<i class="ph-fill ph-bone mr-1"></i>',
+					cardiologue: '<i class="ph-fill ph-heartbeat mr-1"></i>',
+				};
+
+				appointmentDetails.innerHTML = `
+                <span class="flex items-center justify-center mb-1">
+                    ${practitionerIcons[selectedPractitioner]} ${practitionerLabels[selectedPractitioner]}
+                </span>
+                <span class="flex items-center justify-center">
+                    <i class="ph ph-calendar-check mr-1"></i> ${selectedDate} à ${selectedTime}
+                </span>
+            `;
+
+				// Afficher avec animation
+				confirmationSection.classList.remove("hidden");
+				confirmationSection.classList.add("fade-in");
+
+				// Scroll to confirmation
+				confirmationSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
+			}
+		</script>
+	</body>
+</html>
